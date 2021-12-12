@@ -5,7 +5,32 @@
 {% endblock %}
 
 {% block body %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div>
+        {{ messages[0] }}
+    </div>
+{% endif %}
+{% endwith %}
+<form method="POST" action="/login">
+    <div>
+        <div>
+            <input type="email" name="email" placeholder="Email" autofocus="">
+        </div>
+    </div>
 
-<h3>Login Page</h3>
+    <div>
+        <div>
+            <input type="password" name="password" placeholder="Password">
+        </div>
+    </div>
+    <div>
+        <label>
+            <input type="checkbox" name="remember">
+            Remember me
+        </label>
+    </div>
+    <button>Login</button>
+</form>
 
 {% endblock %}
