@@ -6,10 +6,28 @@
 
 {% block body %}
 
-<h3>Weather Details Page</h3>
+<h1>Weather Details Page</h1>
 
-<h1 >
-    Welcome, {{ name }}!
-</h1>
+<h2>
+    Welcome, {{ name }}
+</h2>
+<h3>
+    Latitude: {{ latitude }}
+</h3>
+<h3>
+    Longitude:- {{ longitude }}
+</h3>
+<h3>
+    TimeZone:- {{ timezone }}
+</h3>
+<h3>
+    Temperature:- {{ temp }}
+</h3>
+<h3>
+    Pressure:- {{ pressure }}
+</h3>
+<h3>
+    Weather:- {{ main }} [ {{ description }} ]
+</h3>
 
 {% endblock %}

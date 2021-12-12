@@ -27,7 +27,7 @@ def login_post():
     # if user exist and credentials are correct, authorize the user
     login_user(user, remember=remember)
 
-    return redirect(url_for('app.index'))
+    return redirect(url_for('app.details'))
 
 @auth.route('/register')
 def register():
@@ -38,7 +38,6 @@ def register_post():
     email = request.form.get('email').lower()
     firstName = request.form.get('firstName')
     lastName = request.form.get('lastName')
-    location = request.form.get('location')
     password = request.form.get('password')
 
     # retrieve the user data with the email 
@@ -50,7 +49,7 @@ def register_post():
         return redirect(url_for('auth.register'))
 
     # create a new user, hash the password before saving to the db
-    new_user = User(email=email, firstName=firstName, lastName=lastName, location=location, password=generate_password_hash(password, method='sha256'))
+    new_user = User(email=email, firstName=firstName, lastName=lastName, password=generate_password_hash(password, method='sha256'))
     db.session.add(new_user)
     db.session.commit()
 

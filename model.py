@@ -8,7 +8,8 @@ class User(UserMixin, db.Model):
     lastName = db.Column(db.String(20))
     email = db.Column(db.String(40), nullable=False, unique=True)
     password = db.Column(db.String(40), nullable=False)
-    location = db.Column(db.String(40))
+    latitude = db.Column(db.Float, default=0)
+    longitude = db.Column(db.Float, default=0)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self) -> str:
