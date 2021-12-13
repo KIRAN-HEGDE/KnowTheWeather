@@ -1,38 +1,75 @@
-from flask import Flask, render_template, url_for
-from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+from flask import Blueprint, render_template, request
+from flask_login import login_required, current_user
+from . import db
+from .model import User
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-db = SQLAlchemy(app)
+import requests
+import json
 
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    firstName = db.Column(db.String(20), nullable=False)
-    lastName = db.Column(db.String(20))
-    email = db.Column(db.String(40), nullable=False, primary_key=True)
-    password = db.Column(db.String(40), nullable=False)
-    location = db.Column(db.String(40))
-    date_created = db.Column(db.DateTime, default=datetime.utcnow)
-
-    def __repr__(self) -> str:
-        return '<Task %r>' % self.id
+app = Blueprint('app', __name__)
 
 @app.route('/')
+@login_required
 def index():
-    return render_template('index.html')
-
-@app.route('/login')
-def login():
-    return render_template('login.html')
-
-@app.route('/register')
-def register():
-    return render_template('register.html')
+    return render_template('index.html', name=current_user.firstName)
 
 @app.route('/details')
-def weatherDetails():
-    return render_template('weatherDetails.html')
+@login_required
+def details():
+    user = User.query.get_or_404(current_user.id)
+    latitude = str(user.latitude)
+    longitude = str(user.longitude)
 
-if __name__ == "__main__":
-    app.run(debug=True)
+    api_id = '1c2e706a6a347e137b47207ca013c8da'
+    response_API = requests.get('https://api.openweathermap.org/data/2.5/onecall?lat='+latitude+'&lon='+longitude+'&appid='+api_id)
+    
+    if response_API.status_code == 200:  
+        data = response_API.text
+        parse_json = json.loads(data)
+        return render_template('weatherDetails.html', 
+                                latitude=parse_json['lat'], 
+                                longitude=parse_json['lon'], 
+                                timezone=parse_json['timezone'], 
+                                temp=parse_json['current']['temp'],   
+                                pressure=parse_json['current']['pressure'],
+                                main=parse_json['current']['weather'][0]['main'],
+                                description=parse_json['current']['weather'][0]['description'],  
+                                name=current_user.firstName
+                            )
+
+    return render_template('index.html', name=current_user.firstName)
+
+@app.route('/details', methods=['POST'])
+@login_required
+def weatherDetails_post():
+    
+    latitude = request.form.get('latitude')
+    longitude = request.form.get('longitude')
+
+    user = User.query.get_or_404(current_user.id)
+    if latitude == None and longitude == None:
+        latitude = str(user.latitude)
+        longitude = str(user.longitude)
+
+    user.latitude = float(latitude)
+    user.longitude = float(longitude)
+    db.session.commit()
+
+    api_id = '1c2e706a6a347e137b47207ca013c8da'
+    response_API = requests.get('https://api.openweathermap.org/data/2.5/onecall?lat='+latitude+'&lon='+longitude+'&appid='+api_id)
+    
+    if response_API.status_code == 200:  
+        data = response_API.text
+        parse_json = json.loads(data)
+        return render_template('weatherDetails.html', 
+                                latitude=parse_json['lat'], 
+                                longitude=parse_json['lon'], 
+                                timezone=parse_json['timezone'], 
+                                temp=parse_json['current']['temp'],   
+                                pressure=parse_json['current']['pressure'],
+                                main=parse_json['current']['weather'][0]['main'],
+                                description=parse_json['current']['weather'][0]['description'],  
+                                name=current_user.firstName
+                            )
+
+    return render_template('index.html', name=current_user.firstName)
