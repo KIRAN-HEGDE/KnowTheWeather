@@ -1,11 +1,50 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Register Here</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-{% block head %}
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css')}}">
 
-{% endblock %}
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    </head>
 
-{% block body %}
+    <body class="bg-nav">
 
-<h3>Register Page</h3>
+        <nav class="navbar">
+            <a href="" class="navbar-brand text-light" style="margin-left: 10px;">Weather App</a>
+        </nav>
 
-{% endblock %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="text-light display-4 mt-60" style="font-size:80px">Welcome to the Weather App!!!</h1>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mt-60">
+                        <div class="card-body">
+                            <form class="form">
+                                <label>Name</label><br>
+                                <input type="text" class="form-control"><br>
+                                <label>Email</label><br>
+                                <input type="email" class="form-control"><br>
+                                <label>Password</label><br>
+                                <input type="password" class="form-control"><br><br>
+                                <label>Confirm password</label><br>
+                                <input type="password" class="form-control"><br><br>
+                                <input type="submit" class="btn btn-primary btn-block btn-lg" style="width: 100%" value="Login">
+                            </form>
+                            <p class="mt-2" style="align-items: center"> <a href="/login">Login</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    
+    </body>
+</html>

@@ -1,4 +1,9 @@
-body{
-    margin: 0;
-    font-family: sans-serif;
+.bg-nav{
+    background: #00defe;
 }
+
+.mt-60{
+    margin-top: 100px;
+}
+
+
