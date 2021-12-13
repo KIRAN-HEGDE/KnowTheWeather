@@ -9,9 +9,13 @@ import json
 app = Blueprint('app', __name__)
 
 @app.route('/')
-@login_required
 def index():
-    return render_template('index.html', name=current_user.firstName)
+    return render_template('index.html')
+
+@app.route('/locate')
+@login_required
+def locate():
+    return render_template('selectLocation.html')
 
 @app.route('/details')
 @login_required
@@ -33,11 +37,10 @@ def details():
                                 temp=parse_json['current']['temp'],   
                                 pressure=parse_json['current']['pressure'],
                                 main=parse_json['current']['weather'][0]['main'],
-                                description=parse_json['current']['weather'][0]['description'],  
-                                name=current_user.firstName
+                                description=parse_json['current']['weather'][0]['description']
                             )
 
-    return render_template('index.html', name=current_user.firstName)
+    return render_template('index.html')
 
 @app.route('/details', methods=['POST'])
 @login_required
@@ -68,8 +71,7 @@ def weatherDetails_post():
                                 temp=parse_json['current']['temp'],   
                                 pressure=parse_json['current']['pressure'],
                                 main=parse_json['current']['weather'][0]['main'],
-                                description=parse_json['current']['weather'][0]['description'],  
-                                name=current_user.firstName
+                                description=parse_json['current']['weather'][0]['description']
                             )
 
-    return render_template('index.html', name=current_user.firstName)
+    return render_template('index.html')
