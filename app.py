@@ -70,7 +70,7 @@ def weatherDetails_post():
         daily_data = weather_data.daily_data
     except Exception:
         print("API unreachable")
-        return render_template('index.html', name=current_user.firstName)
+        return render_template('index.html')
 
 
     return render_template('weatherDetails.html',
@@ -80,6 +80,5 @@ def weatherDetails_post():
                                 temp=data.temp_details['temp'],
                                 pressure=data.temp_details['pressure'],
                                 main=data.weather_desc['main'],
-                                description=data.weather_desc['description'],
-                                name=current_user.firstName
+                                description=data.weather_desc['description']
                             )
