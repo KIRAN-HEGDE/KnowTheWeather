@@ -21,7 +21,7 @@ class CurrentData:
 
     @classmethod
     def by_latitude_longitude(cls, lat: float, lon: float):
-        query = {'lat': lat, 'lon': lon, 'appid': os.getenv("API_KEY")}
+        query = {'lat': lat, 'lon': lon, 'appid': '1c2e706a6a347e137b47207ca013c8da'}
         response = requests.get(CurrentData.URL, params=query)
         response.raise_for_status()
         response = response.json()
