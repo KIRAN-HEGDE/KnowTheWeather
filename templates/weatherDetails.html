@@ -6,28 +6,46 @@
 
 {% block body %}
 
-<h1>Weather Details Page</h1>
-
-<h2>
-    Welcome, {{ name }}
-</h2>
-<h3>
-    Latitude: {{ latitude }}
-</h3>
-<h3>
-    Longitude:- {{ longitude }}
-</h3>
-<h3>
-    TimeZone:- {{ timezone }}
-</h3>
-<h3>
-    Temperature:- {{ temp }}
-</h3>
-<h3>
-    Pressure:- {{ pressure }}
-</h3>
-<h3>
-    Weather:- {{ main }} [ {{ description }} ]
-</h3>
+<div class="d-flex justify-content-center">
+    <div class="col-md-7">
+        <div class="card mt-80">
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">Weather Details</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">Latitude</th>
+                        <td>{{ latitude }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Longitude</th>
+                        <td>{{ longitude }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">TimeZone</th>
+                        <td>{{ timezone }}</td>     
+                      </tr>
+                      <tr>
+                        <th scope="row">Temperature</th>
+                        <td>{{ temp }}</td>     
+                      </tr>
+                      <tr>
+                        <th scope="row">Pressure</th>
+                        <td>{{ pressure }}</td>     
+                      </tr>
+                      <tr>
+                        <th scope="row">Weather</th>
+                        <td>{{ main }} [ {{ description }} ]</td>     
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

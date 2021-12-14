@@ -1,36 +1,46 @@
 {% extends 'base.html' %}
 
 {% block head %}
-
+        <title>Login Here</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 {% endblock %}
 
 {% block body %}
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-    <div>
-        {{ messages[0] }}
-    </div>
-{% endif %}
-{% endwith %}
-<form method="POST" action="/login">
-    <div>
-        <div>
-            <input type="email" name="email" placeholder="Email" autofocus="">
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="text-secondary display-4 mt-60" style="font-size:80px">Welcome to the Weather App!!!</h1>
+        </div>
+        <div class="col-md-4">
+            <div class="card mt-60">
+                <div class="card-body">
+                    <form class="form" method="POST" action="/login">
+                        
+                        <label>Email</label><br>
+                        <input type="email" class="form-control" name="email" required><br>
+                        <label>Password</label><br>
+                        <input type="password" class="form-control" name="password" required>
+                        
+                        <input type="checkbox" class="form-check-label" name="remember">
+                        
+                        <label>Remember me</label><br><br>
+                        {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <div class="text-danger">
+                                {{ messages[0] }}
+                            </div>
+                        {% endif %}
+                        {% endwith %}
+                        <input type="submit" class="btn btn-primary btn-block btn-lg" style="width: 100%" value="Login">
+                    </form>
+                    
+                    <div class="d-flex justify-content-center">
+                        <a class="nav-link" href="{{ url_for('auth.register') }}">Create Account</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div>
-        <div>
-            <input type="password" name="password" placeholder="Password">
-        </div>
-    </div>
-    <div>
-        <label>
-            <input type="checkbox" name="remember">
-            Remember me
-        </label>
-    </div>
-    <button>Login</button>
-</form>
+</div>
 
 {% endblock %}
