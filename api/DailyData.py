@@ -1,6 +1,6 @@
 import requests
 
-from api.CurrentData import CurrentData
+from .CurrentData import CurrentData
 
 
 class DailyData:

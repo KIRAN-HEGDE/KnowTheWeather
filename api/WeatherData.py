@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 
-from api.CurrentData import CurrentData
-from api.DailyData import DailyData
+from .CurrentData import CurrentData
+from .DailyData import DailyData
 
 load_dotenv()
 
