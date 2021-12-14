@@ -1,46 +1,49 @@
 {% extends 'base.html' %}
 
 {% block head %}
-
+    <title>Register Here</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 {% endblock %}
 
 {% block body %}
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-    <div >
-        {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">Log-in</a> page.
-    </div>
-{% endif %}
-{% endwith %}
-<div>
-    <h3 class="title">Register</h3>
-    <div>
-        <form method="POST" action="/register">
-            <div>
-                <div>
-                    <input type="email" name="email" placeholder="Email" autofocus="">
-                </div>
-            </div>
 
-            <div>
-                <div>
-                    <input type="text" name="firstName" placeholder="First Name" autofocus="">
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="text-secondary display-4 mt-60" style="font-size:80px">Welcome to the Weather App!!!</h1>
+        </div>
+        <div class="col-md-4">
+            <div class="card mt-60">
+                <div class="card-body">
+                    <form    method="POST" action="/register">
+                        <label>Email</label><br>
+                        <input type="email" class="form-control" name="email" required><br>
+                        <label>First Name</label><br>
+                        <input type="text" class="form-control" name="firstName" required><br>
+                        <label>Last Name</label><br>
+                        <input type="text" class="form-control" name="lastName"><br>
+                        <label>Password</label><br>
+                        <input id="password" type="password" class="form-control" name="password" required><br>
+                        <label>Confirm password</label><br>
+                        <input id="confirmPassword" type="password" class="form-control" name="confirmPassword" required><br>
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <div class="text-danger">
+                                    {{ messages[0] }}.
+                                </div>
+                            {% endif %}
+                        {% endwith %}
+                        <input  id="submit" type="submit" class="btn btn-primary btn-block btn-lg" style="width: 100%" value="Register">
+                    </form>
+                    
+                    <div class="d-flex justify-content-center">
+                        <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
+                    </div>
                 </div>
             </div>
-            <div>
-                <div>
-                    <input type="text" name="lastName" placeholder="Last Name" autofocus="">
-                </div>
-            </div>
-            <div>
-                <div>
-                    <input type="password" name="password" placeholder="Password">
-                </div>
-            </div>
-
-            <button>Sign Up</button>
-        </form>
+        </div>
     </div>
 </div>
+<script type="text/javascript" src="{{ url_for('static', filename='script/register.js') }}"></script>
 
 {% endblock %}

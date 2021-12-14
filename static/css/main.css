@@ -2,3 +2,7 @@ body{
     margin: 0;
     font-family: sans-serif;
 }
+#map {
+    width: 50%;
+    height: 480px;
+  }

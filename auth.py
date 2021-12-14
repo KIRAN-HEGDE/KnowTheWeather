@@ -27,7 +27,7 @@ def login_post():
     # if user exist and credentials are correct, authorize the user
     login_user(user, remember=remember)
 
-    return redirect(url_for('app.details'))
+    return redirect(url_for('app.index'))
 
 @auth.route('/register')
 def register():
@@ -39,6 +39,11 @@ def register_post():
     firstName = request.form.get('firstName')
     lastName = request.form.get('lastName')
     password = request.form.get('password')
+    confirmPassword = request.form.get('confirmPassword')
+
+    if password!=confirmPassword:
+        flash("Passwords doesn't match")
+        return redirect(url_for('auth.register'))
 
     # retrieve the user data with the email 
     user = User.query.filter_by(email=email).first() 
@@ -59,4 +64,5 @@ def register_post():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('app.index'))
+    flash("Successfully Logged-out")
+    return redirect(url_for('auth.login'))
