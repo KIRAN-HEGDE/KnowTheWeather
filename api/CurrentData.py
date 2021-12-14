@@ -1,5 +1,4 @@
 import requests
-from dotenv import load_dotenv
 import os
 
 
@@ -14,20 +13,18 @@ class CurrentData:
 
     @classmethod
     def by_city_name(cls, city_name: str):
-        query = {'q': city_name, 'appid': os.getenv("API_KEY")}
-        response = requests.get(CurrentData.URL, params=query).json()
-        if response["cod"] != 200:
-            raise Exception(response["message"])
-        # print(response)
+        query = {'q': city_name, 'appid': '1c2e706a6a347e137b47207ca013c8da'}
+        response = requests.get(CurrentData.URL, params=query)
+        response.raise_for_status()
+        response = response.json()
         return cls(response)
 
     @classmethod
     def by_latitude_longitude(cls, lat: float, lon: float):
         query = {'lat': lat, 'lon': lon, 'appid': os.getenv("API_KEY")}
-        response = requests.get(CurrentData.URL, params=query).json()
-        if response["cod"] != 200:
-            raise Exception(response["message"])
-        # print(response)
+        response = requests.get(CurrentData.URL, params=query)
+        response.raise_for_status()
+        response = response.json()
         return cls(response)
 
     def get_coordinates(self):
@@ -45,7 +42,6 @@ class CurrentData:
 
 
 if __name__ == "__main__":
-    load_dotenv()
     weather_details = CurrentData.by_city_name("sagar")
     # print(weather_details)
     weather_details2 = CurrentData.by_latitude_longitude(35.02, 90.00)
